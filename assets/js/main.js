@@ -263,3 +263,34 @@
   });
 
 })()
+//switch backgrouns controller
+const backgroundEl = document.querySelectorAll('.random-background span');
+backgroundEl.forEach(span=>{
+     span.addEventListener('click',(s)=>{
+      s.target.parentElement.querySelectorAll('.active').forEach(element=>{
+         element.classList.remove('active');
+      });
+      s.target.classList.add('active');
+      if(s.target.dataset.bg == 'yes'){
+         optionBG = true;
+         randomBG();
+         localStorage.setItem('backgroundOption',true);
+      }else{
+          clearInterval(intervalBG);
+          localStorage.setItem('backgroundOption',false);
+      }
+     });
+     
+});
+
+function randomBG(){
+   if(optionBG == true){
+      intervalBG = setInterval(()=>{
+        let randomNumber = Math.floor(Math.random() * arrImg.length);
+        landingPage.style.backgroundImage='url("img/'+arrImg[randomNumber]+'")';
+     },1000);
+     
+   }  
+ }
+
+ randomBG();
